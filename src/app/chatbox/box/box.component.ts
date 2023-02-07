@@ -38,8 +38,13 @@ export class BoxComponent implements OnInit {
 
   bloquear(){
     //METODO PARA BLOQUEAR EN BASE
-    this.mostrarPagina(1);
-    MostrarMensaje(`Cédula ${this.cedula} fue bloqueada`);
+    if(this.cedula !== undefined && this.cedula !== null && this.cedula !== "" ){
+      console.log(this.cedula);
+      MostrarMensaje(`Cédula ${this.cedula} fue bloqueada`);
+      this.mostrarPagina(1);
+    }else{
+      MostrarMensaje("Ingrese una cédula");
+    }
   }
 
   enviarSMS(){
@@ -64,15 +69,15 @@ export class BoxComponent implements OnInit {
     //Metodo para enviar clave por algun medio
 
     if(this.clave === clave){
-      this.mostrarPagina(1);
       MostrarMensaje("Usuario desbloqueado");
+      this.mostrarPagina(1);
     }
     else{
       this.clave = "";
       MostrarMensaje("La clave ingresada es incorrecta")
       if(+intento >= 2 ){
-        this.mostrarPagina(1);
         MostrarMensaje("Intentos Superados");
+        this.mostrarPagina(1);
       }else{
         localStorage.setItem("intento",""+(+intento+1));
       }
